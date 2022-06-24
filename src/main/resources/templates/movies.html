@@ -1,0 +1,66 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+            <h3 class="jumbotron-heading">All movies</h3>
+        </div>
+    </section>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12" th:if="${movies.size() > 0}">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Product name</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="movie : ${movies}" class="movie">
+                            <td th:text="${movie.getName()}"></td>
+                            <td th:text="${movie.getGenre() != null}
+                            ? ${movie.getGenre().getName()} : 'No Genre'"></td>
+                            <td class="text-right">
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <form th:action="@{'/movies/delete/{id}' (id=${movie.getId()})}"
+                                          th:method="DELETE">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger delete-movie">
+                                            <i class="fa fa-trash">Delete</i>
+                                        </button>
+                                    </form>
+                                </th:block>
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a th:href="@{'/movies/edit-form/{id}' (id=${movie.getId()})}"
+                                       class="btn btn-sm btn-info edit-movie">
+                                        <i class="fa fa-trash">Edit</i>
+                                    </a>
+                                </th:block>
+                                <form th:action="@{'/shopping-cart/add-movie/{id}' (id=${movie.getId()})}"
+                                      th:method="POST"
+                                      sec:authorize="isAuthenticated()">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-primary cart-movie">
+                                        <i class="fa fa-trash">Add movie to cart</i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="/movies/add-form" class="btn btn-block btn-dark add-movie-btn">
+                            Add new movie
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
