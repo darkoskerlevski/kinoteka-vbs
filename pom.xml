@@ -11,8 +11,8 @@
     <groupId>mk.ukim.finki.wp</groupId>
     <artifactId>e-shop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>e-shop</name>
-    <description>e-Shop for web programming</description>
+    <name>filmoteka</name>
+    <description>streaming service for movies</description>
 
     <properties>
         <java.version>11</java.version>

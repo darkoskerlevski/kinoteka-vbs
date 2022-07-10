@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.eshop.bootstrap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.wp.eshop.model.*;
+import mk.ukim.finki.wp.eshop.repository.jpa.ActorRepository;
 import mk.ukim.finki.wp.eshop.repository.jpa.CategoryRepository;
 import mk.ukim.finki.wp.eshop.repository.jpa.MovieRepository;
 import mk.ukim.finki.wp.eshop.service.UserService;
@@ -23,6 +24,7 @@ public class DataHolder {
 
     public final MovieRepository movieRepository;
     public final CategoryRepository categoryRepository;
+    public final ActorRepository actorRepository;
     public final UserService userService;
 
     @PostConstruct
@@ -65,12 +67,15 @@ public class DataHolder {
                 String movieString = soln.get("film_title").toString();
                 String movieDesc = soln.get("film_desc").toString();
                 String film = soln.get("film").toString();
+                film = "<" + film + ">";
+
+                Movie movie = new Movie(movieString.substring(0, movieString.length()-3), movieDesc.substring(0, movieDesc.length()-3), genre);
 
                 String actorsQueryString = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
                         "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-                        "PREFIX dbo: <http://dbpedia.org#>" +
+                        "PREFIX dbo: <http://dbpedia.org/ontology/>" +
                         "SELECT ?actor_name ?actor WHERE {" +
-                        "<" + film + ">" + " dbo:starring ?actor ." +
+                        film + " dbo:starring ?actor ." +
                         "?actor rdfs:label ?actor_name " +
                         "FILTER(LANGMATCHES(LANG(?actor_name), 'en')) ." +
                         "}";
@@ -82,12 +87,14 @@ public class DataHolder {
                         QuerySolution soln2 = results2.nextSolution();
                         String actorUrlString = soln2.get("actor").toString();
                         String actorNameString = soln2.get("actor_name").toString();
-                        actorList.add(new Actor(actorNameString.substring(0, actorNameString.length()-3), actorUrlString));
+                        Actor actor = new Actor(actorNameString.substring(0, actorNameString.length()-3), actorUrlString);
+                        actorList.add(actor);
+//                        actorRepository.save(actor);
                     }
                 }
 
-                Movie movie = new Movie(movieString.substring(0, movieString.length()-3), movieDesc.substring(0, movieDesc.length()-3), genre, actorList);
 
+                movie.setActors(actorList);
                 categoryRepository.save(genre);
                 movieRepository.save(movie);
             }

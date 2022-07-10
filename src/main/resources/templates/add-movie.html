@@ -1,7 +1,7 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+            <h1 class="jumbotron-heading">FILMOTEKA</h1>
         </div>
     </section>
 
@@ -21,29 +21,11 @@
                                placeholder="Enter movie name">
                     </div>
                     <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="text"
-                               class="form-control"
-                               id="price"
-                               name="price"
-                               th:value="(${movie} != null ? ${movie.getPrice()} : '')"
-                               placeholder="Price">
-                    </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input type="text"
-                               class="form-control"
-                               id="quantity"
-                               name="quantity"
-                               th:value="(${movie} != null ? ${movie.getQuantity()} : '')"
-                               placeholder="Quantity">
-                    </div>
-                    <div class="form-group">
                         <label>Category</label>
                         <select name="genre" class="form-control">
                             <option th:if="${movie} != null"
-                                    th:selected="${movie.getCategory() != null &&
-                                movie.getCategory().getId() == cat.getId()}"
+                                    th:selected="${movie.getGenre() != null &&
+                                movie.getGenre().getId() == cat.getId()}"
                                     th:each="cat : ${categories}"
                                     th:value="${cat.getId()}"
                                     th:text="${cat.getName()}">
@@ -52,22 +34,6 @@
                                     th:each="cat : ${categories}"
                                     th:value="${cat.getId()}"
                                     th:text="${cat.getName()}">
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Manufacturer</label>
-                        <select name="manufacturer" class="form-control">
-                            <option th:if="${movie} != null"
-                                    th:selected="${movie.getManufacturer() != null && movie.getManufacturer().getId() == man.getId()}"
-                                    th:each="man : ${manufacturers}"
-                                    th:value="${man.getId()}"
-                                    th:text="${man.getName()}">
-                            </option>
-                            <option th:if="${movie} == null"
-                                    th:each="man : ${manufacturers}"
-                                    th:value="${man.getId()}"
-                                    th:text="${man.getName()}">
                             </option>
                         </select>
                     </div>

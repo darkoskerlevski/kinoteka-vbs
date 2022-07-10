@@ -17,7 +17,7 @@ public interface MovieService {
 
     List<Movie> findByGenre(String genre);
 
-    Movie save(String name, String desc, Long category, List<Actor> actors);
+    Movie save(String name, String desc, Long category);
 
     Movie save(MovieDto movieDto);
 

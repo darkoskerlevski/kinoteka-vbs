@@ -17,7 +17,7 @@ public class Actor {
 
     private String url;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "actors")
     private List<Movie> movies;
 
     public Actor() {

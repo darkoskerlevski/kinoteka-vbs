@@ -89,13 +89,12 @@ public class MovieController {
     public String saveMovie(
             @RequestParam(required = false) Long id,
             @RequestParam String name,
-            @RequestParam String desc,
-            @RequestParam Long category,
-            @RequestParam List<Actor> actors) {
+            @RequestParam(required = false) String desc,
+            @RequestParam Long category) {
         if (id != null) {
             this.movieService.edit(id, name, category);
         } else {
-            this.movieService.save(name, desc, category, actors);
+            this.movieService.save(name, desc, category);
         }
         return "redirect:/movies";
     }

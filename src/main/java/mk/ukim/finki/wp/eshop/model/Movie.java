@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,15 +23,19 @@ public class Movie {
     @ManyToOne
     private Genre genre;
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Actor> actors;
 
     public Movie() {
+        this.actors = new ArrayList<>();
     }
 
-    public Movie(String name, String desc, Genre genre, List<Actor> actors) {
+    public Movie(String name, String desc, Genre genre) {
         this.name = name;
         this.description = desc;
         this.genre = genre;
+        this.actors = new ArrayList<>();
     }
+
+
 }

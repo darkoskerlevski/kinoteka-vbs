@@ -50,12 +50,13 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional
-    public Movie save(String name, String desc, Long categoryId, List<Actor> actors) {
+    public Movie save(String name, String desc, Long categoryId) {
         Genre genre = this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
 
         this.movieRepository.deleteByName(name);
-        return this.movieRepository.save(new Movie(name, desc, genre, actors));
+        Movie m = new Movie(name, desc, genre);
+        return this.movieRepository.save(m);
     }
 
     @Override
@@ -64,7 +65,9 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() -> new CategoryNotFoundException(movieDto.getCategory()));
 
         this.movieRepository.deleteByName(movieDto.getName());
-        return this.movieRepository.save(new Movie(movieDto.getName(), movieDto.getDescription(), genre, movieDto.getActors()));
+        Movie m = new Movie(movieDto.getName(), movieDto.getDescription(), genre);
+        m.setActors(movieDto.getActors());
+        return this.movieRepository.save(m);
     }
 
     @Override
@@ -79,7 +82,9 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
         movie.setGenre(genre);
 
-        return this.movieRepository.save(new Movie(movie.getName(), movie.getDescription(), movie.getGenre(), movie.getActors()));
+        Movie m = new Movie(movie.getName(), movie.getDescription(), movie.getGenre());
+        m.setActors(movie.getActors());
+        return this.movieRepository.save(m);
     }
 
     @Override
@@ -92,7 +97,9 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() -> new CategoryNotFoundException(movieDto.getCategory()));
         movie.setGenre(genre);
 
-        return this.movieRepository.save(new Movie(movie.getName(), movie.getDescription(), movie.getGenre(), movie.getActors()));
+        Movie m = new Movie(movie.getName(), movie.getDescription(), movie.getGenre());
+        m.setActors(movie.getActors());
+        return this.movieRepository.save(m);
     }
 
     @Override
