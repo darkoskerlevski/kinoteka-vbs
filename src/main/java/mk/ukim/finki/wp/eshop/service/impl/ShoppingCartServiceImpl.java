@@ -64,4 +64,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCart.getMovies().add(movie);
         return this.shoppingCartRepository.save(shoppingCart);
     }
+
+    @Override
+    public ShoppingCart removeFromShoppingCart(Movie movie, String username) {
+        ShoppingCart shoppingCart = this.getActiveShoppingCart(username);
+        List<Movie> movieList = shoppingCart.getMovies();
+        movieList.remove(movie);
+        shoppingCart.setMovies(movieList);
+        return this.shoppingCartRepository.save(shoppingCart);
+    }
 }

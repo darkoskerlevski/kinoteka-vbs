@@ -10,4 +10,5 @@ public interface ShoppingCartService {
     List<Movie> listAllProductsInShoppingCart(Long cartId);
     ShoppingCart getActiveShoppingCart(String username);
     ShoppingCart addProductToShoppingCart(String username, Long productId);
+    ShoppingCart removeFromShoppingCart(Movie movie, String username);
 }

@@ -30,6 +30,15 @@
                             <td th:text="${movie.getGenre().getName()}"></td>
 <!--                            <td th:text="${movie.getManufacturer() != null} ? ${movie.getManufacturer().getName()} : 'No Manufacturer'"></td>-->
 <!--                            <td th:text="${movie.getCategory() != null} ? ${movie.getCategory().getName()} : 'No Category'"></td>-->
+                            <td>
+                                <form th:action="@{'/shopping-cart/deleteitem/{id}/{itemid}' (id=${cart.getId()},itemid=${movie.getId()})}"
+                                      th:method="DELETE">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger">
+                                        Remove <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
