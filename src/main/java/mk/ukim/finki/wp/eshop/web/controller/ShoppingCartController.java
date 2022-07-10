@@ -32,12 +32,12 @@ public class ShoppingCartController {
         }
         String username = req.getRemoteUser();
         ShoppingCart shoppingCart = this.shoppingCartService.getActiveShoppingCart(username);
-        model.addAttribute("products", this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()));
+        model.addAttribute("movies", this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()));
         model.addAttribute("bodyContent", "shopping-cart");
         return "master-template";
     }
 
-    @PostMapping("/add-product/{id}")
+    @PostMapping("/add-movie/{id}")
     public String addProductToShoppingCart(@PathVariable Long id, HttpServletRequest req, Authentication authentication) {
         try {
             User user = (User) authentication.getPrincipal();

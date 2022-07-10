@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Genre, Long> {
     List<Genre> findAllByNameLike(String text);
+    Genre findByName(String name);
     void deleteByName(String name);
 }

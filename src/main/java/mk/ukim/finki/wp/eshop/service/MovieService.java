@@ -16,13 +16,13 @@ public interface MovieService {
 
     List<Movie> findByGenre(String genre);
 
-    Optional<Movie> save(String name, Long category);
+    Movie save(String name, Long category);
 
-    Optional<Movie> save(MovieDto movieDto);
+    Movie save(MovieDto movieDto);
 
-    Optional<Movie> edit(Long id, String name, Long category);
+    Movie edit(Long id, String name, Long category);
 
-    Optional<Movie> edit(Long id, MovieDto movieDto);
+    Movie edit(Long id, MovieDto movieDto);
 
     void deleteById(Long id);
 }

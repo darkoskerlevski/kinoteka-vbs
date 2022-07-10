@@ -5,7 +5,6 @@ import mk.ukim.finki.wp.eshop.model.exceptions.InvalidArgumentsException;
 import mk.ukim.finki.wp.eshop.model.exceptions.InvalidUserCredentialsException;
 import mk.ukim.finki.wp.eshop.model.exceptions.PasswordsDoNotMatchException;
 import mk.ukim.finki.wp.eshop.model.exceptions.UsernameAlreadyExistsException;
-import mk.ukim.finki.wp.eshop.repository.impl.InMemoryUserRepository;
 import mk.ukim.finki.wp.eshop.repository.jpa.UserRepository;
 import mk.ukim.finki.wp.eshop.service.AuthService;
 import org.springframework.stereotype.Service;

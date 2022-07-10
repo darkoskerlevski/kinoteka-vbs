@@ -1,7 +1,6 @@
 package mk.ukim.finki.wp.eshop.service.impl;
 
 import mk.ukim.finki.wp.eshop.model.Genre;
-import mk.ukim.finki.wp.eshop.repository.impl.InMemoryCategoryRepository;
 import mk.ukim.finki.wp.eshop.repository.jpa.CategoryRepository;
 import mk.ukim.finki.wp.eshop.service.CategoryService;
 import org.springframework.stereotype.Service;
@@ -11,9 +10,9 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    private final InMemoryCategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(InMemoryCategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -42,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (name==null || name.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        //categoryRepository.deleteByName(name);
+        categoryRepository.delete(categoryRepository.findByName(name));
     }
 
     @Override

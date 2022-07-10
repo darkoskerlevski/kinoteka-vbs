@@ -13,7 +13,8 @@ import java.util.List;
 public class ShoppingCart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq_gen")
+    @SequenceGenerator(name="my_seq_gen", sequenceName="ENTITY_SEQ")
     private Long id;
 
     private LocalDateTime dateCreated;
