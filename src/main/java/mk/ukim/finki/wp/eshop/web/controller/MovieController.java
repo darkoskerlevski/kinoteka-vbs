@@ -25,13 +25,25 @@ public class MovieController {
     }
 
     @GetMapping
-    public String getMoviePage(@RequestParam(required = false) String error, Model model) {
+    public String getMoviePage(@RequestParam(required = false) String genre, @RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
         List<Movie> movies = this.movieService.findAll();
-        model.addAttribute("movies", movies);
+        List<Genre> genres = this.categoryService.listCategories();
+        model.addAttribute("genres", genres);
+        if(genre != null && !genre.equalsIgnoreCase("All genres")){
+            model.addAttribute("movies", movieService.findByGenre(genre));
+            model.addAttribute("selectedGenre", genre);
+        }
+        else model.addAttribute("movies", movies);
+        model.addAttribute("bodyContent", "Movies");
+        return "master-template";
+    }
+
+    @RequestMapping(value = "/{genre}", method = RequestMethod.GET)
+    public String getMoviesByGenrePage(@PathVariable String genre, Model model){
         model.addAttribute("bodyContent", "Movies");
         return "master-template";
     }

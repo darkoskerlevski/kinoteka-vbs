@@ -25,9 +25,6 @@ public class DataHolder {
     @PostConstruct
     public void init() {
 
-
-        genres.add(new Genre("Test", "Testtest"));
-
         String SPARQLEndpoint = "http://dbpedia.org/sparql";
 
         String queryString = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
@@ -39,7 +36,7 @@ public class DataHolder {
                 "?film <http://dbpedia.org/ontology/genre> ?film_genre ." +
                 "?film_genre rdfs:label ?genre_name " +
                 "FILTER(LANGMATCHES(LANG(?film_title), 'en') && LANGMATCHES(LANG(?genre_name), 'en')) . " +
-                "} ORDER BY RAND() LIMIT 10";
+                "} ORDER BY RAND() LIMIT 50";
 
         System.out.println("Query: " + queryString);
 

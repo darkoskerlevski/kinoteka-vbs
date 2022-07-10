@@ -44,6 +44,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findByGenre(String genre) {
+        return this.movieRepository.findByGenre(genre);
+    }
+
+    @Override
     @Transactional
     public Optional<Movie> save(String name, Long categoryId) {
         Genre genre = this.categoryRepository.findById(categoryId)
