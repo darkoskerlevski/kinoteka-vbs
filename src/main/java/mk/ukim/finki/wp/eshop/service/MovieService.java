@@ -14,6 +14,8 @@ public interface MovieService {
 
     Optional<Movie> findByName(String name);
 
+    List<Movie> findByGenre(String genre);
+
     Optional<Movie> save(String name, Long category);
 
     Optional<Movie> save(MovieDto movieDto);

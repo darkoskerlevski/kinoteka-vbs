@@ -18,6 +18,13 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <form>
+                            <select onchange="this.form.submit()" class="form-control" name="genre">
+                                <option value="" th:text="${selectedGenre != null} ? ${selectedGenre} : ''"></option>
+                                <option value="All Genres">All Genres</option>
+                                <option th:each="genre: ${genres}" th:value="${genre.getName()}" th:text="${genre.getName()}"></option>
+                            </select>
+                        </form>
                         <tr th:each="movie : ${movies}" class="movie">
                             <td th:text="${movie.getName()}"></td>
                             <td th:text="${movie.getGenre() != null}

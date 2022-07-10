@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryMovieRepository {
@@ -21,6 +22,10 @@ public class InMemoryMovieRepository {
 
     public Optional<Movie> findByName(String name) {
         return DataHolder.movies.stream().filter(i -> i.getName().equals(name)).findFirst();
+    }
+
+    public List<Movie> findByGenre(String genre){
+        return DataHolder.movies.stream().filter(i -> i.getGenre().getName().equals(genre)).collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {
