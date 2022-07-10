@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.eshop.service;
 
+import mk.ukim.finki.wp.eshop.model.Actor;
 import mk.ukim.finki.wp.eshop.model.Movie;
 import mk.ukim.finki.wp.eshop.model.dto.MovieDto;
 
@@ -16,7 +17,7 @@ public interface MovieService {
 
     List<Movie> findByGenre(String genre);
 
-    Movie save(String name, Long category);
+    Movie save(String name, String desc, Long category, List<Actor> actors);
 
     Movie save(MovieDto movieDto);
 

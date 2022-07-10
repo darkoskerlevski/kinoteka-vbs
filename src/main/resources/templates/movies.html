@@ -45,14 +45,23 @@
                                         <i class="fa fa-trash">Edit</i>
                                     </a>
                                 </th:block>
-                                <form th:action="@{'/shopping-cart/add-movie/{id}' (id=${movie.getId()})}"
-                                      th:method="POST"
-                                      sec:authorize="isAuthenticated()">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary cart-movie">
-                                        <i class="fa fa-trash">Add movie to cart</i>
-                                    </button>
-                                </form>
+                                <div class="d-flex justify-content-center">
+                                    <form class="mr-2" th:action="@{'/movies/details/{id}' (id=${movie.getId()})}"
+                                          th:method="GET">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-primary cart-movie">
+                                            <i class="fa fa-trash">Details</i>
+                                        </button>
+                                    </form>
+                                    <form class="ml-2" th:action="@{'/shopping-cart/add-movie/{id}' (id=${movie.getId()})}"
+                                          th:method="POST"
+                                          sec:authorize="isAuthenticated()">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-success cart-movie">
+                                            <i class="fa fa-trash">Add movie to watchlist</i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         </tbody>

@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.eshop.web.controller;
 
+import mk.ukim.finki.wp.eshop.model.Actor;
 import mk.ukim.finki.wp.eshop.model.Genre;
 import mk.ukim.finki.wp.eshop.model.Movie;
 import mk.ukim.finki.wp.eshop.service.CategoryService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Movies")
+@RequestMapping("/movies")
 public class MovieController {
 
     private final MovieService movieService;
@@ -38,13 +39,13 @@ public class MovieController {
             model.addAttribute("selectedGenre", genre);
         }
         else model.addAttribute("movies", movies);
-        model.addAttribute("bodyContent", "Movies");
+        model.addAttribute("bodyContent", "movies");
         return "master-template";
     }
 
     @RequestMapping(value = "/{genre}", method = RequestMethod.GET)
     public String getMoviesByGenrePage(@PathVariable String genre, Model model){
-        model.addAttribute("bodyContent", "Movies");
+        model.addAttribute("bodyContent", "movies");
         return "master-template";
     }
 
@@ -76,15 +77,25 @@ public class MovieController {
         return "master-template";
     }
 
+    @GetMapping("/details/{id}")
+    public String getMovieDetailsPage(@PathVariable Long id, Model model){
+        Movie movie = this.movieService.findById(id).get();
+        model.addAttribute("movie", movie);
+        model.addAttribute("bodyContent", "movieDetails");
+        return "master-template";
+    }
+
     @PostMapping("/add")
     public String saveMovie(
             @RequestParam(required = false) Long id,
             @RequestParam String name,
-            @RequestParam Long category) {
+            @RequestParam String desc,
+            @RequestParam Long category,
+            @RequestParam List<Actor> actors) {
         if (id != null) {
             this.movieService.edit(id, name, category);
         } else {
-            this.movieService.save(name, category);
+            this.movieService.save(name, desc, category, actors);
         }
         return "redirect:/movies";
     }
