@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.eshop.service.impl;
 
+import mk.ukim.finki.wp.eshop.model.Actor;
 import mk.ukim.finki.wp.eshop.model.Genre;
 import mk.ukim.finki.wp.eshop.model.Movie;
 import mk.ukim.finki.wp.eshop.model.dto.MovieDto;
@@ -49,12 +50,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional
-    public Movie save(String name, Long categoryId) {
+    public Movie save(String name, String desc, Long categoryId, List<Actor> actors) {
         Genre genre = this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
 
         this.movieRepository.deleteByName(name);
-        return this.movieRepository.save(new Movie(name, genre));
+        return this.movieRepository.save(new Movie(name, desc, genre, actors));
     }
 
     @Override
@@ -63,7 +64,7 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() -> new CategoryNotFoundException(movieDto.getCategory()));
 
         this.movieRepository.deleteByName(movieDto.getName());
-        return this.movieRepository.save(new Movie(movieDto.getName(), genre));
+        return this.movieRepository.save(new Movie(movieDto.getName(), movieDto.getDescription(), genre, movieDto.getActors()));
     }
 
     @Override
@@ -78,7 +79,7 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() -> new CategoryNotFoundException(categoryId));
         movie.setGenre(genre);
 
-        return this.movieRepository.save(new Movie(movie.getName(), movie.getGenre()));
+        return this.movieRepository.save(new Movie(movie.getName(), movie.getDescription(), movie.getGenre(), movie.getActors()));
     }
 
     @Override
@@ -91,7 +92,7 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() -> new CategoryNotFoundException(movieDto.getCategory()));
         movie.setGenre(genre);
 
-        return this.movieRepository.save(new Movie(movie.getName(), movie.getGenre()));
+        return this.movieRepository.save(new Movie(movie.getName(), movie.getDescription(), movie.getGenre(), movie.getActors()));
     }
 
     @Override
